@@ -1,0 +1,14 @@
+{
+  "tagline": "Mini apresentacao",
+  "title": "Ola, eu sou uma pequena pagina de apresentacao.",
+  "intro": "Este e um texto curto com frases bem simples.",
+  "sentences": [
+    "O ceu esta limpo hoje.",
+    "Eu gosto de cha pela manha.",
+    "Esta pagina e simples e tranquila.",
+    "Pequenos passos trazem progresso.",
+    "Aprender acontece uma linha por vez."
+  ],
+  "talk": "E disso que estou falando",
+  "footer": "Mude o idioma para ver o mesmo texto."
+}

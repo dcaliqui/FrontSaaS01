@@ -1,0 +1,42 @@
+node_modules
+
+.next/
+next-env.d.ts
+
+test-app/node_modules
+test-app/.pnp
+test-app/.pnp.*
+test-app/.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+test-app/coverage
+
+# next.js
+test-app/.next/
+test-app/out/
+
+# production
+test-app/build
+
+test-app/.DS_Store
+test-app/*.pem
+
+# debug
+test-app/npm-debug.log*
+test-app/yarn-debug.log*
+test-app/yarn-error.log*
+test-app/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+test-app/.env*
+
+# vercel
+test-app/.vercel
+
+# typescript
+test-app/*.tsbuildinfo
+test-app/next-env.d.ts

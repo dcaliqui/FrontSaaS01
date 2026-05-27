@@ -1,0 +1,14 @@
+{
+  "tagline": "Mini presentation",
+  "title": "Hello, I am a small presentation page.",
+  "intro": "This is a short intro with a few simple sentences.",
+  "sentences": [
+    "The sky is clear today.",
+    "I like warm tea in the morning.",
+    "This page is simple and calm.",
+    "Small steps make real progress.",
+    "Learning happens one line at a time."
+  ],
+  "talk": "That's what I'm talking about",
+  "footer": "Switch the language to see the same presentation text."
+}
