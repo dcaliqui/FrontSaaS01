@@ -21,9 +21,9 @@ function NavLink({ href, children, className }: NavLinkProps) {
 		<Link
 			href={href}
 			className={`
-				text-slate-600 dark:text-slate-300
+				text-slate-600
 				border-b-2 border-transparent
-				hover:text-slate-950 dark:hover:text-white hover:font-semibold
+				hover:text-slate-950 hover:font-semibold
 				hover:border-amber-300
 				transition-all duration-300
 				hover:scale-105
@@ -45,7 +45,7 @@ export default function Header() {
 	return (
 		<>
 
-			<header className='sticky top-0 z-40 border-b border-white/70 bg-white/75 py-3 text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/70 dark:text-slate-50'>
+			<header className='sticky top-0 z-40 border-b border-white/70 bg-white/75 py-3 text-slate-900 shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:bg-slate-950 dark:text-slate-50 dark:border-slate-700/70'>
 				<nav className='flex justify-between items-center container mx-auto px-4 md:px-6 lg:px-0' >
 					<div className='flex justify-center items-center gap-2 md:gap-4'>
 						<Link href="#inicio" aria-label="Ir para o início">
@@ -54,8 +54,8 @@ export default function Header() {
 					</div>
 
 					<div className='hidden md:flex gap-4 lg:gap-6'>
-						<NavLink href='#funcionalidades'>{t("header.features")}</NavLink>
-						<NavLink href='#sobre'>{t("header.about")}</NavLink>
+						<NavLink className='dark:text-slate-50' href='#funcionalidades'>{t("header.features")}</NavLink>
+						<NavLink className='dark:text-slate-50' href='#sobre'>{t("header.about")}</NavLink>
 					</div>
 
 					<div className='flex gap-2'>

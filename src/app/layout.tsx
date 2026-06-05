@@ -31,7 +31,7 @@ export default async function RootLayout({
 			suppressHydrationWarning
 			className={cn("h-full", "antialiased", inter.variable, "font-sans")}
 		>
-			<body className="min-h-full flex flex-col bg-background text-foreground">
+			<body className="min-h-full flex flex-col">
 				<ThemeProvider >
 					<MessagesProvider locale={defaultLocale} messages={messages}>
 						{children}

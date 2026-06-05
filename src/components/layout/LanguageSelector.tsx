@@ -86,7 +86,7 @@ export default function LanguageSelector({
           flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium
           border transition-all duration-150 cursor-pointer whitespace-nowrap
           border-black/10 hover:border-black/20 hover:bg-black/5
-          dark:border-white/15 dark:hover:border-white/25 dark:hover:bg-white/8
+          dark:border-white/15 dark:hover:border-white/25 dark:hover:bg-white/8 dark:hover:text-amber-200
           ${isOpen
 						? "bg-black/5 border-black/20 dark:bg-white/8 dark:border-white/25"
 						: "bg-transparent"
@@ -143,7 +143,7 @@ export default function LanguageSelector({
                   text-neutral-900 dark:text-neutral-100
                   transition-colors duration-100
                   hover:bg-black/5 focus:bg-black/5
-                  dark:hover:bg-white/8 dark:focus:bg-white/8
+                  dark:hover:bg-white/8 dark:focus:bg-white/8 dark:hover:text-slate-400
                   ${isActive ? "bg-black/4 dark:bg-white/6 font-medium" : "font-normal"}
                 `}
 							>

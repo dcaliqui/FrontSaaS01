@@ -11,7 +11,8 @@
 	"header": {
 		"features": "Fonctionnalites",
 		"about": "A propos",
-		"start": "Commencer"
+		"start": "Commencer",
+		"theme": "Theme"
 	},
 	"hero": {
 		"quotePrimary": "Car Dieu n'est pas un Dieu de desordre, mais de paix.",

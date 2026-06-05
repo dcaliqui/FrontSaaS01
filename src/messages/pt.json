@@ -11,7 +11,8 @@
 	"header": {
 		"features": "Funcionalidades",
 		"about": "Sobre",
-		"start": "Começar"
+		"start": "Começar",
+		"theme": "Tema"
 	},
 	"hero": {
 		"quotePrimary": "Pois Deus não é Deus de desordem, mas de paz.",

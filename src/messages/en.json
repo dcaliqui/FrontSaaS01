@@ -11,7 +11,8 @@
 	"header": {
 		"features": "Features",
 		"about": "About",
-		"start": "Get started"
+		"start": "Get started",
+		"theme": "Theme"
 	},
 	"hero": {
 		"quotePrimary": "For God is not a God of disorder but of peace.",
