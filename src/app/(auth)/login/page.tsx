@@ -36,7 +36,7 @@ export default function Login() {
 	}, [state, router, locale]);
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center bg-[#e8eaed] p-6">
+		<div className="min-h-screen flex flex-col items-center justify-center bg-[#e8eaed] p-6 dark:bg-slate-950">
 
 			{/* ===== MAIN CARD ===== */}
 			<div className="flex flex-col md:flex-row w-full max-w-240 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,20,60,0.12),0_4px_20px_rgba(0,20,60,0.06)]">
