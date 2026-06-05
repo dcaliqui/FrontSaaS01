@@ -28,7 +28,7 @@ export default function Footer() {
 
        
                     <div>
-                        <h3 className="font-semibold text-[#1A365D] mb-3">
+                        <h3 className="font-semibold text-[#1A365D] dark:text-slate-50 mb-3">
                             {t("footer.legalTitle")}
                         </h3>
                         <ul className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
@@ -48,11 +48,11 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-10 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <div className="mt-10 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-slate-400">
                     <p>{t("footer.rights")}</p>
 
                     <Link
-                        className="text-[#2B3EA2] mt-4 md:mt-0 font-medium hover:underline"
+                        className="text-[#2B3EA2] dark:text-slate-50 mt-4 md:mt-0 font-medium hover:underline"
                         href={supportHref}
                     >
                         {t("footer.support")}

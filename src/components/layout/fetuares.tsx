@@ -26,27 +26,27 @@ export default function Fun() {
 	const communicationQuoteSource = t("features.communicationQuoteSource");
 
 	return (
-		<div className="bg-white py-4">
+		<div className="bg-white py-4 dark:bg-slate-950">
 			<div className="container mx-auto px-4">
 				<div className="flex flex-col items-center space-y-4 py-14 text-center md:py-16">
-					<h5 className="text-2xl font-bold text-[#1A365D] md:text-4xl">
+					<h5 className="text-2xl font-bold text-[#1A365D] md:text-4xl dark:text-slate-50">
 						{t("features.title")}
 					</h5>
 					<div className="h-1 w-24 bg-amber-300" />
 				</div>
 
 				<div className="grid gap-6 lg:grid-cols-2">
-					<div className="group flex min-h-90 flex-col overflow-hidden rounded-2xl bg-[#F1F5F9] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
+					<div className="group flex min-h-90 dark:bg-slate-900 flex-col overflow-hidden rounded-2xl bg-[#F1F5F9] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
 						<div className="flex flex-1 flex-col gap-4">
 							<div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#BDD6FF]">
 								<Church size={24} className="text-[#1A365D]" />
 							</div>
 
-							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl">
+							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl dark:text-slate-50">
 								{t("features.membersTitle")}
 							</p>
 
-							<p className="text-base leading-relaxed text-[#475569] md:text-lg">
+							<p className="text-base leading-relaxed text-[#475569] md:text-lg dark:text-slate-300">
 								{t("features.membersDescription")}
 							</p>
 						</div>
@@ -88,17 +88,17 @@ export default function Fun() {
 						</div>
 					</div>
 
-					<div className="group flex min-h-90 flex-col overflow-hidden rounded-2xl bg-[#F8FAFC] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
+					<div className="group flex min-h-90 dark:bg-slate-900 flex-col overflow-hidden rounded-2xl bg-[#F8FAFC] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
 						<div className="flex flex-1 flex-col gap-4">
 							<div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFDEA5]">
 								<MousePointerClick size={24} className="text-[#5D4201]" />
 							</div>
 
-							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl">
+							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl dark:text-slate-50">
 								{t("features.donationsTitle")}
 							</p>
 
-							<p className="text-base leading-relaxed text-[#475569] md:text-lg">
+							<p className="text-base leading-relaxed text-[#475569] md:text-lg dark:text-slate-300">
 								{t("features.donationsDescription")}
 							</p>
 						</div>
@@ -114,21 +114,21 @@ export default function Fun() {
 						</div>
 					</div>
 
-					<div className="group flex min-h-90 flex-col overflow-hidden rounded-2xl bg-[#F1F5F9] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
+					<div className="group flex min-h-90 dark:bg-slate-900 flex-col overflow-hidden rounded-2xl bg-[#F1F5F9] p-6 shadow-sm ring-1 ring-slate-200/70 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 md:p-8">
 						<div className="flex flex-1 flex-col gap-4">
 							<div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#BDD6FF]">
 								<MessageSquare size={24} className="text-[#1A365D]" />
 							</div>
 
-							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl">
+							<p className="text-xl font-semibold text-[#1A365D] md:text-2xl dark:text-slate-50">
 								{t("features.communicationTitle")}
 							</p>
 
-							<p className="text-base leading-relaxed text-[#475569] md:text-lg">
+							<p className="text-base leading-relaxed text-[#475569] md:text-lg dark:text-slate-300">
 								{t("features.communicationDescription")}
 							</p>
 
-							<p className="mt-auto text-sm italic text-[#94A3B8] md:text-base">
+							<p className="mt-auto text-sm italic text-[#94A3B8] md:text-base dark:text-slate-400">
 								&quot;{t("features.communicationQuote")}&quot;
 								{communicationQuoteSource ? ` ${communicationQuoteSource}` : ""}
 							</p>
