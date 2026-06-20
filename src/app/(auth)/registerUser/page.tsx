@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "@/assets/images/lobo-SE.webp";
-import Google from "@/assets/images/SVG.webp";
+import Logo from "@/assets/images/lobo-SE.png";
 import { ArrowRight, Eye, EyeOff, Loader2, AlertCircle, Sparkles } from "lucide-react";
+import { GoogleAuthButton } from "@/components/ui/google-auth-button";
 import { registerAction } from "@/utils/actionsRegister";
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,18 @@ export default function RegisterUser() {
 		password: "",
 		confirmPassword: "",
 	});
+
+	const calculateAge = (birthDate: string) => {
+		if (!birthDate) return 0;
+		const birth = new Date(birthDate);
+		const today = new Date();
+		let age = today.getFullYear() - birth.getFullYear();
+		const monthDiff = today.getMonth() - birth.getMonth();
+		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+			age--;
+		}
+		return age;
+	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		setFields(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -64,7 +76,7 @@ export default function RegisterUser() {
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.16),transparent_28%),linear-gradient(to_bottom,#e5eef9,#dbeafe)] px-4 py-8 text-slate-900 dark:bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_26%),linear-gradient(to_bottom,#020617,#0f172a)] dark:text-slate-50">
 			<div className="flex w-full max-w-240 flex-col overflow-hidden rounded-3xl border border-white/60 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.18)] backdrop-blur-xl md:flex-row dark:border-white/10 dark:bg-slate-950/70">
-				<div className="side2 relative min-h-75 w-full overflow-hidden bg-slate-900 p-8 md:min-h-175 md:w-[45%] self-stretch">
+				<div className="side2 relative min-h-75 w-full flex flex-col justify-between overflow-hidden bg-slate-900 p-8 md:min-h-175 md:w-[45%] self-stretch">
 					<div className="absolute inset-0 bg-linear-to-b from-[rgba(2,6,23,0.2)] via-[rgba(2,6,23,0.56)] to-[rgba(2,6,23,0.84)] pointer-events-none z-0" />
 					<div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(56,189,248,0.10),transparent_30%)]" />
 
@@ -106,13 +118,7 @@ export default function RegisterUser() {
 							</p>
 						</div>
 
-						<a
-							href="http://localhost:3001/v1/api/auth/google"
-							className="mb-5 flex items-center justify-center gap-2.5 rounded-[14px] border border-slate-200/80 bg-white/85 px-4 py-3 text-sm font-medium text-slate-800 shadow-[0_1px_3px_rgba(15,23,42,0.04)] backdrop-blur-sm no-underline transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)] active:translate-y-0 active:scale-[0.98] dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:bg-white/8"
-						>
-							<Image src={Google} alt="Google" width={18} height={18} />
-							<span>{t("auth.register.google")}</span>
-						</a>
+						<GoogleAuthButton text={t("auth.register.google")} />
 
 						{/* Divider */}
 						<div className="flex items-center gap-4 mb-5">
@@ -201,6 +207,11 @@ export default function RegisterUser() {
 										onFocus={() => setFocusedField("birthDate")}
 										onBlur={() => setFocusedField(null)}
 									/>
+									{fields.birthDate && calculateAge(fields.birthDate) < 13 && (
+										<p className="text-red-600 text-[0.7rem] mt-1.5 ml-1 font-medium flex items-center gap-1">
+											{t("auth.register.minimumAge")}
+										</p>
+									)}
 								</div>
 							</div>
 
@@ -224,7 +235,7 @@ export default function RegisterUser() {
 										type="button"
 										onClick={() => setShowPassword(!showPassword)}
 										className="absolute right-3.5 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-md border-none bg-transparent p-1 text-slate-400 transition-colors duration-200 hover:bg-slate-100 hover:text-sky-800 dark:hover:bg-white/8 dark:hover:text-sky-300"
-										aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+										aria-label={showPassword ? t("auth.login.passwordHide") : t("auth.login.passwordShow")}
 									>
 										{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
 									</button>
@@ -252,7 +263,7 @@ export default function RegisterUser() {
 										type="button"
 										onClick={() => setShowConfirmPassword(!showConfirmPassword)}
 										className="absolute right-3.5 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-md border-none bg-transparent p-1 text-slate-400 transition-colors duration-200 hover:bg-slate-100 hover:text-sky-800 dark:hover:bg-white/8 dark:hover:text-sky-300"
-										aria-label={showConfirmPassword ? "Ocultar senha" : "Mostrar senha"}
+										aria-label={showConfirmPassword ? t("auth.login.passwordHide") : t("auth.login.passwordShow")}
 									>
 										{showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
 									</button>
@@ -292,13 +303,18 @@ export default function RegisterUser() {
 							{state?.error && (
 								<div className="mb-4 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 animate-shake dark:border-red-400/20 dark:bg-red-500/10" role="alert">
 									<AlertCircle size={16} className="text-red-600 shrink-0" />
-									<p className="text-[0.85rem] font-medium text-red-600 dark:text-red-200">{state.error}</p>
+									<p className="text-[0.85rem] font-medium text-red-600 dark:text-red-200">
+										{state.error === "MINIMUM_AGE_ERROR"
+											? t("auth.register.minimumAge")
+											: t(state.error)
+										}
+									</p>
 								</div>
 							)}
 
 							<button
 								type="submit"
-								disabled={pending}
+								disabled={pending || (fields.birthDate !== "" && calculateAge(fields.birthDate) < 13)}
 								className="mb-6 flex items-center justify-center gap-2 rounded-[14px] border-none bg-slate-950 py-3.5 text-[0.85rem] font-semibold tracking-wide text-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-[0_12px_28px_rgba(15,23,42,0.2)] active:translate-y-0 active:scale-[0.98] active:shadow-[0_2px_8px_rgba(15,23,42,0.15)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-none dark:bg-amber-300 dark:text-slate-950 dark:hover:bg-amber-200"
 							>
 								{pending ? (
@@ -329,7 +345,6 @@ export default function RegisterUser() {
 				</div>
 			</div>
 
-			{/* ===== FOOTER ===== */}
 			<footer className="flex flex-col md:flex-row items-center justify-between w-full max-w-240 px-7 py-4 mt-0 bg-white rounded-b-2xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] gap-3 md:gap-0">
 				<p className="text-[#002045] italic font-semibold text-[0.8rem] tracking-wide">CLARIS</p>
 				<div className="flex gap-5">

@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { getAuthToken } from "@/lib/auth-cookies"
 import { useMessages } from "@/i18n/messages"
+import { FeedbackToast } from "@/components/ui/feedback-toast"
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/v1/api"
 
@@ -35,6 +36,25 @@ export function CreateEventDialog({
 	const { t } = useMessages()
 	const [open, setOpen] = useState(false)
 	const [submitting, setSubmitting] = useState(false)
+
+	// Toast state
+	const [toastOpen, setToastOpen] = useState(false)
+	const [toastTitle, setToastTitle] = useState("")
+	const [toastDescription, setToastDescription] = useState<string | undefined>(undefined)
+	const [toastVariant, setToastVariant] = useState<"success" | "error" | "info">("info")
+
+	const showToast = (title: string, description?: string, variant: "success" | "error" | "info" = "info") => {
+		setToastTitle(title)
+		setToastDescription(description)
+		setToastVariant(variant)
+		setToastOpen(true)
+	}
+
+	useEffect(() => {
+		if (!toastOpen) return
+		const id = window.setTimeout(() => setToastOpen(false), 4200)
+		return () => window.clearTimeout(id)
+	}, [toastOpen])
 
 	// Campos do formulário
 	const [title, setTitle] = useState("")
@@ -92,20 +112,26 @@ export function CreateEventDialog({
 	const handleSubmit = async () => {
 		const cleanTitle = title.trim()
 		if (cleanTitle.length < 2 || cleanTitle.length > 120) {
-			alert("O título deve ter entre 2 e 120 caracteres.")
+			showToast(t("events.toast.invalidTitle"), t("events.toast.titleLengthError"), "error")
 			return
 		}
 		if (!date || !time) {
-			alert("Data e hora são obrigatórias.")
+			showToast(t("events.toast.requiredDateTime"), undefined, "error")
 			return
 		}
 
-		// Combina data + hora num ISO-8601 (ex: "2026-06-15T19:00:00.000Z")
-		const combinedDate = new Date(`${date}T${time}`)
-		if (Number.isNaN(combinedDate.getTime())) {
-			alert("A data ou hora informada é inválida.")
-			return
-		}
+				const localDateString = `${date}T${time}`;
+				const combinedDate = new Date(`${localDateString}:00`);
+				const now = new Date();
+				const marginMs = 60 * 1000;
+				if (combinedDate.getTime() < now.getTime() - marginMs) {
+					showToast(t("events.toast.pastDate"), undefined, "error")
+					return
+				}
+			if (Number.isNaN(combinedDate.getTime())) {
+				showToast(t("events.toast.invalidDateTime"), undefined, "error")
+				return
+			}
 
 		setSubmitting(true)
 		try {
@@ -134,32 +160,34 @@ export function CreateEventDialog({
 				const errorJson = await response.json().catch(() => ({}))
 				const errorMessage = Array.isArray(errorJson?.message)
 					? errorJson.message[0]
-					: errorJson?.message || "Erro ao criar o evento."
+					: errorJson?.message || t("events.toast.createError")
 				throw new Error(errorMessage)
 			}
 
+			showToast(t("events.toast.createSuccess"), undefined, "success")
 			resetForm()
 			setOpen(false)
 			onSuccess?.()
 		} catch (error) {
-			alert(error instanceof Error ? error.message : "Erro ao criar o evento.")
+			showToast(error instanceof Error ? error.message : t("events.toast.createError"), undefined, "error")
 		} finally {
 			setSubmitting(false)
 		}
 	}
 
 	return (
-		<Dialog open={open} onOpenChange={handleOpenChange}>
-			<DialogTrigger asChild>
-				{children ?? (
-					<Button className="h-12 w-fit rounded-2xl bg-[#FFDEA5] px-5 font-bold text-[#5D4201] shadow-sm hover:bg-[#FFD38A]">
-						<Plus size={18} />
-						<span>Criar Evento</span>
-					</Button>
-				)}
-			</DialogTrigger>
+		<>
+			<Dialog open={open} onOpenChange={handleOpenChange}>
+				<DialogTrigger asChild>
+					{children ?? (
+						<Button className="h-12 w-fit rounded-2xl bg-[#FFDEA5] px-5 font-bold text-[#5D4201] shadow-sm hover:bg-[#FFD38A]">
+							<Plus size={18} />
+							<span>{t("events.create.submit")}</span>
+						</Button>
+					)}
+				</DialogTrigger>
 
-			<DialogContent className="w-full max-h-[92vh] overflow-hidden p-0 sm:max-w-2xl md:max-w-4xl">
+				<DialogContent className="w-full max-h-[92vh] overflow-hidden p-0 sm:max-w-2xl md:max-w-4xl">
 				<DialogHeader className="border-b border-slate-100 bg-linear-to-br from-[#002045] via-[#1E3A8A] to-[#D97706] px-6 py-6 text-white">
 					<div className="flex items-center gap-3">
 						<div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm">
@@ -181,7 +209,7 @@ export function CreateEventDialog({
 						{/* Coluna do Banner */}
 						<div className="space-y-3">
 							<Label htmlFor="banner" className="text-sm font-semibold text-[#002045]">
-								Imagem do Evento / Banner
+								{t("events.edit.fields.banner")}
 							</Label>
 							<label
 								htmlFor="banner"
@@ -199,16 +227,16 @@ export function CreateEventDialog({
 											<ImagePlus size={30} />
 										</div>
 										<p className="text-sm font-semibold text-[#002045]">
-											Selecionar Banner
+											{t("events.edit.selectBanner")}
 										</p>
 										<p className="mt-2 text-xs leading-relaxed text-slate-500">
-											PNG, JPG ou WEBP. Imagem recomendada em formato paisagem.
+											{t("events.edit.bannerHint")}
 										</p>
 									</div>
 								)}
 								<span className="mb-4 mt-auto inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1E3A8A] shadow-sm transition-transform group-hover:scale-105">
 									<Upload size={14} />
-									{photoPreviewUrl ? "Trocar Banner" : "Selecionar Banner"}
+									{photoPreviewUrl ? t("events.edit.changeBanner") : t("events.edit.selectBanner")}
 								</span>
 							</label>
 							<input
@@ -342,7 +370,15 @@ export function CreateEventDialog({
 						)}
 					</Button>
 				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+				</DialogContent>
+			</Dialog>
+			<FeedbackToast
+				open={toastOpen}
+				title={toastTitle}
+				description={toastDescription}
+				variant={toastVariant}
+				onClose={() => setToastOpen(false)}
+			/>
+		</>
 	)
 }

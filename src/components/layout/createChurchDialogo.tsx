@@ -26,6 +26,7 @@ type DialogDemoProps = {
 	onOpen?: () => void
 	onSuccess?: () => void  // ← novo: para recarregar lista após criação
 	setOrganizations?: React.Dispatch<React.SetStateAction<OrganizationRef[]>>
+	onToast?: (payload: { title: string; description?: string; variant: "success" | "error" | "info" }) => void
 }
 
 type OrganizationRef = {
@@ -48,6 +49,7 @@ export function DialogDemo({
 	onOpen,
 	onSuccess,
 	setOrganizations,
+	onToast,
 }: DialogDemoProps) {
 	const { t } = useMessages()
 	const [open, setOpen] = useState(false)
@@ -108,7 +110,7 @@ export function DialogDemo({
 
 	const handleSubmit = async () => {
 		if (!name.trim() || !churchId.trim()) {
-			alert(t("church.create.validation"))
+			onToast?.({ title: t("church.create.validation"), variant: "error" });
 			return
 		}
 
@@ -155,10 +157,10 @@ export function DialogDemo({
 			resetForm()
 			setOpen(false)
 			onSuccess?.()  // ← notifica o pai para atualizar a lista
-			alert(t("church.create.success"))
+			onToast?.({ title: t("church.create.success"), variant: "success" })
 			setOrganizations?.((prev) => [...prev, createdOrganization])
 		} catch (error) {
-			alert(error instanceof Error ? error.message : t("church.create.errors.create"))
+			onToast?.({ title: error instanceof Error ? error.message : t("church.create.errors.create"), variant: "error" })
 		} finally {
 			setSubmitting(false)
 		}
@@ -220,12 +222,12 @@ export function DialogDemo({
 										<p className="mt-2 text-xs leading-relaxed text-slate-500">
 											{t("church.create.imageHint")}
 										</p>
+										<span className="mb-4 mt-8 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1E3A8A] shadow-sm transition-transform group-hover:scale-105">
+											<Upload size={14} />
+											{logoPreviewUrl ? t("church.create.changeImage") : t("church.create.selectImage")}
+										</span>
 									</div>
 								)}
-								<span className="mb-4 mt-auto inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1E3A8A] shadow-sm transition-transform group-hover:scale-105">
-									<Upload size={14} />
-									{logoPreviewUrl ? t("church.create.changeImage") : t("church.create.selectImage")}
-								</span>
 							</label>
 							<input
 								id="logo"
@@ -278,7 +280,7 @@ export function DialogDemo({
 									name="churchId"
 									churches={churches}
 									loading={loadingChurches}
-									onChange={(value) => setChurchId(value)}  // ← isso já resolve
+									onChange={(value) => setChurchId(value)}
 								/>
 							</div>
 

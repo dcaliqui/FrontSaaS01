@@ -12,15 +12,29 @@ export async function registerAction(prevState: any, formData: FormData) {
 	const birthDate = formData.get('birthDate') as string;
 
 	if (!displayName || !email || !password) {
-		return { success: false, error: "Preencha todos os campos obrigatórios." };
+		return { success: false, error: "errors.required" };
 	}
 
 	if (password !== confirmPassword) {
-		return { success: false, error: "As senhas não coincidem." };
+		return { success: false, error: "errors.passwordsNotMatch" };
 	}
 
 	if (password.length < 6) {
-		return { success: false, error: "A senha deve ter no mínimo 6 caracteres." };
+		return { success: false, error: "errors.passwordMinLength" };
+	}
+
+	// Validar idade mínima de 13 anos
+	if (birthDate) {
+		const birth = new Date(birthDate);
+		const today = new Date();
+		let age = today.getFullYear() - birth.getFullYear();
+		const monthDiff = today.getMonth() - birth.getMonth();
+		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+			age--;
+		}
+		if (age < 13) {
+			return { success: false, error: "MINIMUM_AGE_ERROR", needsTranslation: true };
+		}
 	}
 
 	try {
@@ -47,6 +61,6 @@ export async function registerAction(prevState: any, formData: FormData) {
 
 	} catch (error: any) {
 		console.error("Erro ao registrar usuário:", error);
-		return { success: false, error: error.message || "Erro ao criar conta." };
+		return { success: false, error: error.message || "errors.accountCreationError" };
 	}
 }

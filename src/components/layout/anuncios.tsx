@@ -1,4 +1,9 @@
+"use client";
+
+import { useMessages } from "@/i18n/messages";
+
 export default function AnnouncementCard() {
+  const { t } = useMessages();
   return (
     <div
       className="
@@ -12,18 +17,14 @@ export default function AnnouncementCard() {
 		h-140
       "
     >
-      {/* Title */}
       <h2 className="text-[20px] font-bold">
-        Comunicados
+        {t("community.announcements.title")}
       </h2>
 
-      {/* Description */}
       <p className="mt-4 text-sm leading-6 text-[#A9B5CC]">
-        Envie mensagens inspiradoras para toda a congregação
-        instantaneamente.
+        {t("community.announcements.description")}
       </p>
 
-      {/* Text Area */}
       <div
         className="
           mt-6
@@ -35,7 +36,7 @@ export default function AnnouncementCard() {
         "
       >
         <textarea
-          placeholder="Compor nova mensagem..."
+          placeholder={t("community.announcements.placeholder")}
           className="
             h-full
             w-full
@@ -49,7 +50,6 @@ export default function AnnouncementCard() {
         />
       </div>
 
-      {/* Info */}
       <div className="mt-5 flex items-center gap-2">
         <div
           className="
@@ -69,11 +69,10 @@ export default function AnnouncementCard() {
         </div>
 
         <span className="text-[12px] text-[#A9B5CC]">
-          Envia para 1,240 dispositivos
+          {t("community.announcements.deviceCount", { count: 1240 })}
         </span>
       </div>
 
-      {/* Button */}
       <button
         className="
           mt-5
@@ -95,7 +94,7 @@ export default function AnnouncementCard() {
         "
       >
         <span>➤</span>
-        ENVIAR AGORA
+        {t("community.announcements.send")}
       </button>
     </div>
   );
