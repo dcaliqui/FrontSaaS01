@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Google from "@/assets/images/SVG.png";
+import Google from "@/assets/images/SVG.webp";
 
 interface GoogleAuthButtonProps {
   text: string;

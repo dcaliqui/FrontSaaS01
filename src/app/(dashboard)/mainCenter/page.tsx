@@ -31,7 +31,7 @@ import { addLocaleToPathname } from "@/i18n/routing";
 import { useUserStore } from "@/stores/userStore";
 import { api } from "@/lib/api";
 import { normalizeMediaUrl } from "@/lib/media-url";
-import Logo from "@/assets/images/logo.png";
+import Logo from "@/assets/images/logo.webp";
 import { FeedbackToast } from "@/components/ui/feedback-toast";
 import { CreateEventDialog } from "@/components/layout/createEvent";
 import { EditEventDialog } from "@/components/layout/editEvent";
@@ -343,7 +343,7 @@ function ChatMemberAvatar({ member }: { member: Member }) {
 	return <Avatar name={member.name} url={member.avatarUrl} size="md" className="h-11 w-11" />;
 }
 
-	function MemberChatPanel({
+function MemberChatPanel({
 	member,
 	messages,
 	draft,
@@ -1331,9 +1331,9 @@ function DashboardPageContent() {
 			<header className="sticky top-0 z-40 border-b border-white/70 bg-[#F7F9FC]/85 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-8">
 				<div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
 					<Link href={backHref} className="flex items-center justify-center gap-3">
-										<span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
-											<Image src={Logo} alt={t("common.logoAlt")} width={34} height={34} />
-										</span>
+						<span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+							<Image src={Logo} alt={t("common.logoAlt")} width={34} height={34} />
+						</span>
 					</Link>
 					<div className="flex items-center gap-3">
 						<Link

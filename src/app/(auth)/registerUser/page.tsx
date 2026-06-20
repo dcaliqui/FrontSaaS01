@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "@/assets/images/lobo-SE.png";
+import Logo from "@/assets/images/lobo-SE.webp";
 import { ArrowRight, Eye, EyeOff, Loader2, AlertCircle, Sparkles } from "lucide-react";
 import { GoogleAuthButton } from "@/components/ui/google-auth-button";
 import { registerAction } from "@/utils/actionsRegister";
