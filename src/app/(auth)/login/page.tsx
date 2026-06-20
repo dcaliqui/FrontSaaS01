@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Logo from "@/assets/images/lobo-SE.png";
-import Google from "@/assets/images/SVG.png";
+import Logo from "@/assets/images/lobo-SE.webp";
+import Google from "@/assets/images/SVG.webp";
 import { ArrowRight, Eye, EyeOff, Loader2, AlertCircle, Sparkles } from "lucide-react";
 import { loginAction } from "@/utils/actionsLogin";
 import { useActionState } from "react";
@@ -48,12 +48,12 @@ export default function Login() {
 
 					{/* Logo */}
 					<Link href="/">
-					<div className="flex items-center gap-2.5 relative z-10">
-						<div className="w-9 h-10.5 flex items-center justify-center">
-							<Image src={Logo} alt="Claris Logo" className="w-full h-full object-contain" />
+						<div className="flex items-center gap-2.5 relative z-10">
+							<div className="w-9 h-10.5 flex items-center justify-center">
+								<Image src={Logo} alt="Claris Logo" className="w-full h-full object-contain" />
+							</div>
+							<p className="text-white text-2xl font-semibold tracking-wider">CLARIS</p>
 						</div>
-						<p className="text-white text-2xl font-semibold tracking-wider">CLARIS</p>
-					</div>
 					</Link>
 
 					{/* Inspirational quote */}
@@ -115,14 +115,14 @@ export default function Login() {
 							{/* Email */}
 							<div className={`mb-5 transition-transform duration-200 ${focusedField === "email" ? "translate-x-0.5" : ""}`}>
 								<label htmlFor="email" className="flex justify-between items-center mb-2 text-[0.7rem] font-semibold text-gray-500 tracking-wider">
-										{t("auth.login.emailLabel")}
+									{t("auth.login.emailLabel")}
 								</label>
 								<input
 									type="email"
 									name="email"
 									required
 									id="email"
-										placeholder={t("auth.login.emailPlaceholder")}
+									placeholder={t("auth.login.emailPlaceholder")}
 									className="w-full px-4 py-3 border-[1.5px] border-black/8 rounded-[14px] bg-white/80 backdrop-blur-xs text-[0.9rem] text-gray-800 outline-none transition-all duration-300 ease-out placeholder:text-gray-400 focus:border-[#002045] focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,32,69,0.08)]"
 									onFocus={() => setFocusedField("email")}
 									onBlur={() => setFocusedField(null)}
@@ -133,7 +133,7 @@ export default function Login() {
 							{/* Password */}
 							<div className={`mb-5 transition-transform duration-200 ${focusedField === "password" ? "translate-x-0.5" : ""}`}>
 								<label htmlFor="pss" className="flex justify-between items-center mb-2 text-[0.7rem] font-semibold text-gray-500 tracking-wider">
-										<span>{t("auth.login.passwordLabel")}</span>
+									<span>{t("auth.login.passwordLabel")}</span>
 								</label>
 								<div className="relative">
 									<input
@@ -151,7 +151,7 @@ export default function Login() {
 										type="button"
 										onClick={() => setShowPassword(!showPassword)}
 										className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-gray-400 p-1 flex items-center justify-center transition-colors duration-200 rounded-md hover:text-[#002045] hover:bg-[rgba(0,32,69,0.06)]"
-											aria-label={showPassword ? t("auth.login.passwordHide") : t("auth.login.passwordShow")}
+										aria-label={showPassword ? t("auth.login.passwordHide") : t("auth.login.passwordShow")}
 									>
 										{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
 									</button>
@@ -176,11 +176,11 @@ export default function Login() {
 								{pending ? (
 									<>
 										<Loader2 size={18} className="animate-spin" />
-											<span>{t("auth.login.submitting")}</span>
+										<span>{t("auth.login.submitting")}</span>
 									</>
 								) : (
 									<>
-											<span>{t("auth.login.submit")}</span>
+										<span>{t("auth.login.submit")}</span>
 										<ArrowRight size={18} />
 									</>
 								)}

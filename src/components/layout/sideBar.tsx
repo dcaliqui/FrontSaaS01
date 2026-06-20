@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import icon from "@/assets/images/logoSem.png";
+import icon from "@/assets/images/logoSem.webp";
 
 import {
 	Users,
@@ -23,7 +23,7 @@ export default function Sidebar() {
 						Claris
 					</p>
 				</div>
-				<div className="h-px bg-[#1E3A8A] w-full mb-5"/>
+				<div className="h-px bg-[#1E3A8A] w-full mb-5" />
 
 				{/* Menu */}
 				<nav className="flex flex-col gap-3 text-[#43474E]">

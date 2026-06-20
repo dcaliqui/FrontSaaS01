@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Logo from "@/assets/images/lobo-SE.png"
+import Logo from "@/assets/images/lobo-SE.webp"
 import { ArrowRight } from "lucide-react";
 import { useMessages } from "@/i18n/messages";
 
@@ -63,7 +63,7 @@ export default function Login() {
 										<div className="flex flex-col w-[50%]" >
 											<label htmlFor="fullNmae" className="mb-1 text-[#43474E]">{t("auth.adminRegister.fields.churchName")}</label>
 											<input type="text" required id="fullNmae" placeholder="ex. Jesus Cristo" className=" text-[#74777F] bg-white rounded-2xl h-13.5 p-4 mb-1" />
-											<label htmlFor="local"  className="mb-1 text-[#43474E]">{t("auth.adminRegister.fields.location")}</label>
+											<label htmlFor="local" className="mb-1 text-[#43474E]">{t("auth.adminRegister.fields.location")}</label>
 											<input type="text" required id="local" placeholder="município, bairro .." className="text-[#74777F] bg-white rounded-2xl h-13.5 p-4 mb-1" />
 										</div>
 										<div className="flex flex-col w-[50%] ">

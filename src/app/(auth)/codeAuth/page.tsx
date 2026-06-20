@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
-import Logo from "@/assets/images/lobo-SE.png"
+import Logo from "@/assets/images/lobo-SE.webp"
 import { useSearchParams, useRouter } from "next/navigation";
 import { sendCodeAction } from "@/utils/actionSendCode";
 import { Loader2, AlertCircle, Sparkles, ArrowRight } from "lucide-react";
-import  Link  from "next/link"
+import Link from "next/link"
 import { addLocaleToPathname } from "@/i18n/routing";
 import { useMessages } from "@/i18n/messages";
 
@@ -80,7 +80,7 @@ function CodeAuthContent() {
 			setPending(false);
 			return;
 		}
-		
+
 		const result = await sendCodeAction(undefined, code, email, locale);
 		if (result?.error) {
 			setError(result.error);
@@ -116,7 +116,7 @@ function CodeAuthContent() {
 							<span>{t("auth.code.label")}</span>
 						</div>
 						<p className="text-white text-xl md:text-2xl leading-relaxed italic font-serif max-w-85">
-								&quot;{t("auth.code.quote")}&quot;
+							&quot;{t("auth.code.quote")}&quot;
 						</p>
 					</div>
 
@@ -137,7 +137,7 @@ function CodeAuthContent() {
 								{t("auth.code.title")}
 							</p>
 							<p className="text-gray-500 text-[0.9rem] leading-relaxed">
-								{t("auth.code.subtitle")} <br/>
+								{t("auth.code.subtitle")} <br />
 								<strong className="text-[#002045] block mt-1">{email}</strong>
 							</p>
 						</div>
@@ -183,7 +183,7 @@ function CodeAuthContent() {
 						{/* Bottom Quote */}
 						<div className="mt-auto pt-4 w-full border-t border-gray-200 text-center">
 							<p className="text-gray-500 text-sm italic">
-									&quot;{t("auth.code.footerQuote")}&quot; <br/>
+								&quot;{t("auth.code.footerQuote")}&quot; <br />
 								<span className="text-[#002045] font-medium not-italic block mt-1">{t("auth.code.footerSource")}</span>
 							</p>
 						</div>

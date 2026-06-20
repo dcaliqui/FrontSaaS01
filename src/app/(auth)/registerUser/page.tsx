@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "@/assets/images/lobo-SE.png";
-import Google from "@/assets/images/SVG.png";
+import Logo from "@/assets/images/lobo-SE.webp";
+import Google from "@/assets/images/SVG.webp";
 import { ArrowRight, Eye, EyeOff, Loader2, AlertCircle, Sparkles } from "lucide-react";
 import { registerAction } from "@/utils/actionsRegister";
 import { useActionState, useEffect, useState } from "react";
@@ -167,9 +167,9 @@ export default function RegisterUser() {
 							{/* Gênero e Data de Nascimento */}
 							<div className="flex gap-4 mb-4">
 								<div className={`flex flex-col flex-1 transition-transform duration-200 ${focusedField === "gender" ? "translate-x-0.5" : ""}`}>
-										<label htmlFor="gender" className="block mb-2 text-[0.7rem] font-semibold text-gray-500 tracking-wider">
-											{t("auth.register.gender")}
-										</label>
+									<label htmlFor="gender" className="block mb-2 text-[0.7rem] font-semibold text-gray-500 tracking-wider">
+										{t("auth.register.gender")}
+									</label>
 									<select
 										id="gender"
 										name="gender"
@@ -180,9 +180,9 @@ export default function RegisterUser() {
 										onFocus={() => setFocusedField("gender")}
 										onBlur={() => setFocusedField(null)}
 									>
-											<option value="" disabled hidden>{t("auth.register.genderPlaceholder")}</option>
-											<option value="masculino">{t("auth.register.genderMale")}</option>
-											<option value="feminino">{t("auth.register.genderFemale")}</option>
+										<option value="" disabled hidden>{t("auth.register.genderPlaceholder")}</option>
+										<option value="masculino">{t("auth.register.genderMale")}</option>
+										<option value="feminino">{t("auth.register.genderFemale")}</option>
 									</select>
 								</div>
 
@@ -269,7 +269,7 @@ export default function RegisterUser() {
 								/>
 								<p className="text-[0.75rem] text-gray-600 leading-relaxed">
 									<label htmlFor="terms" className="cursor-pointer select-none">
-									{t("auth.register.termsPrefix")} {" "}
+										{t("auth.register.termsPrefix")} {" "}
 									</label>
 									<Link
 										href={termsHref}

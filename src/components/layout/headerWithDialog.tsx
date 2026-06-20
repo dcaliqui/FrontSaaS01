@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import icon from "@/assets/images/logoSem.png";
+import icon from "@/assets/images/logoSem.webp";
 import { UserPlus, Bell, Settings, Menu } from "lucide-react";
 import { useState } from "react";
 import MembersInvitesDialog from "./membersInvitesDialog";

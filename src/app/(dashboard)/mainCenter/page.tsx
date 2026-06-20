@@ -29,7 +29,7 @@ import { useMessages } from "@/i18n/messages";
 import { addLocaleToPathname } from "@/i18n/routing";
 import { useUserStore } from "@/stores/userStore";
 import { api } from "@/lib/api";
-import Logo from "@/assets/images/logo.png";
+import Logo from "@/assets/images/logo.webp";
 import { FeedbackToast } from "@/components/ui/feedback-toast";
 import { CreateEventDialog } from "@/components/layout/createEvent";
 import { EditEventDialog } from "@/components/layout/editEvent";
@@ -187,34 +187,38 @@ type ChatMessage = {
 
 function unwrapMembershipsResponse(response: MembershipsResponse): MembershipResponseItem[] {
 	if (Array.isArray(response)) return response;
-	if (Array.isArray(response.members)) return response.members;
-	if (Array.isArray(response.result)) return response.result;
-	if (response.result && Array.isArray(response.result.members)) return response.result.members;
+	const obj = response as any;
+	if (Array.isArray(obj.members)) return obj.members;
+	if (Array.isArray(obj.result)) return obj.result;
+	if (obj.result && Array.isArray(obj.result.members)) return obj.result.members;
 	return [];
 }
 
 function unwrapEventsResponse(response: EventsResponse): ApiEvent[] {
 	if (Array.isArray(response)) return response;
-	if (Array.isArray(response.events)) return response.events;
-	if (Array.isArray(response.result)) return response.result;
-	if (response.result && Array.isArray(response.result.events)) return response.result.events;
+	const obj = response as any;
+	if (Array.isArray(obj.events)) return obj.events;
+	if (Array.isArray(obj.result)) return obj.result;
+	if (obj.result && Array.isArray(obj.result.events)) return obj.result.events;
 	return [];
 }
 
 function unwrapChatMessagesResponse(response: ChatMessagesResponse): ChatApiMessage[] {
 	if (Array.isArray(response)) return response;
-	if (Array.isArray(response.messages)) return response.messages;
-	if (Array.isArray(response.result)) return response.result;
-	if (response.result && Array.isArray(response.result.messages)) return response.result.messages;
+	const obj = response as any;
+	if (Array.isArray(obj.messages)) return obj.messages;
+	if (Array.isArray(obj.result)) return obj.result;
+	if (obj.result && Array.isArray(obj.result.messages)) return obj.result.messages;
 	return [];
 }
 
 function unwrapRealtimeMessage(payload: ChatRealtimePayload): ChatApiMessage | null {
 	if ("content" in payload || "senderId" in payload || "recipientId" in payload) {
-		return payload;
+		return payload as ChatApiMessage;
 	}
 
-	return payload.message ?? payload.data ?? payload.result ?? null;
+	const obj = payload as any;
+	return obj.message ?? obj.data ?? obj.result ?? null;
 }
 
 function buildSocketUrl() {
@@ -244,7 +248,7 @@ function mapMembershipToMember(membership: MembershipResponseItem): Member {
 }
 
 const ADMIN_ROLES = new Set(["ADMIN", "SUPER_ADMIN"]);
-const EVENT_IMAGE_FALLBACK = "/igreja.png";
+const EVENT_IMAGE_FALLBACK = "/igreja.webp";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/v1/api";
 const SOCKET_BASE_URL =
 	process.env.NEXT_PUBLIC_SOCKET_URL || API_BASE_URL.replace(/\/v1\/api\/?$/, "");
@@ -746,6 +750,7 @@ function DashboardPageContent() {
 				});
 
 				const joinOrganizationRoom = () => {
+					if (!organization) return;
 					socket?.emit("chat:join", {
 						organizationId: organization.organizationId,
 					});
@@ -756,7 +761,7 @@ function DashboardPageContent() {
 
 				const handleRealtimeMessage = (payload: ChatRealtimePayload) => {
 					const message = unwrapRealtimeMessage(payload);
-					if (!message) return;
+					if (!message || !organization) return;
 
 					if (
 						message.organizationId &&
@@ -1082,13 +1087,13 @@ function DashboardPageContent() {
 			// Build friend Member from the response
 			const friendData = result?.friendship?.friend ?? null;
 			if (friendData) {
-					const newFriend: Member = {
-						id: friendData.id ?? friendData.userId ?? String(memberId),
-						name: friendData.displayName?.trim() || friendData.name?.trim() || friendData.email || "Membro",
-						role: friendData.role ?? "Membro",
-						email: friendData.email ?? undefined,
-						avatarUrl: friendData.avatarUrl ?? undefined,
-					};
+				const newFriend: Member = {
+					id: friendData.id ?? friendData.userId ?? String(memberId),
+					name: friendData.displayName?.trim() || friendData.name?.trim() || friendData.email || "Membro",
+					role: friendData.role ?? "Membro",
+					email: friendData.email ?? undefined,
+					avatarUrl: friendData.avatarUrl ?? undefined,
+				};
 				setFriends((prev) => [...prev, newFriend]);
 				setFriendIds((prev) => new Set(prev).add(newFriend.id));
 			} else {
@@ -1196,7 +1201,7 @@ function DashboardPageContent() {
 				<div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
 					<Link href={backHref} className="flex items-center justify-center gap-3">
 						<span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
-							<Image src={Logo} alt="Logo" width={34} height={34} />
+							<Image priority src={Logo} alt="Logo" width={34} height={34} />
 						</span>
 					</Link>
 					<div className="flex items-center gap-3">
@@ -1346,25 +1351,25 @@ function DashboardPageContent() {
 				<section className="grid gap-5 pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)]">
 					<div>
 						<CommunityMembers
-						title={`Membros de ${organization.name}`}
-						subtitle={
-							membersError
-								? `Não foi possível carregar os membros: ${membersError}`
-								: `Você está a entrar como ${roleLabel}. Clique em um membro para conversar.`
-						}
-						members={organizationMembers}
-						friends={friends}
-						friendIds={friendIds}
-						maxVisible={12}
-						onViewAll={() => console.log("Ver todos")}
-						onInvite={() => console.log("Convidar")}
-						onMemberClick={handleMemberChatOpen}
-						onAddFriend={handleAddFriend}
-						onRemoveFriend={handleRemoveFriend}
-						addingFriendIds={addingFriendIds}
-						removingFriendIds={removingFriendIds}
-						currentUserId={currentUserId}
-					/>
+							title={`Membros de ${organization.name}`}
+							subtitle={
+								membersError
+									? `Não foi possível carregar os membros: ${membersError}`
+									: `Você está a entrar como ${roleLabel}. Clique em um membro para conversar.`
+							}
+							members={organizationMembers}
+							friends={friends}
+							friendIds={friendIds}
+							maxVisible={12}
+							onViewAll={() => console.log("Ver todos")}
+							onInvite={() => console.log("Convidar")}
+							onMemberClick={handleMemberChatOpen}
+							onAddFriend={handleAddFriend}
+							onRemoveFriend={handleRemoveFriend}
+							addingFriendIds={addingFriendIds}
+							removingFriendIds={removingFriendIds}
+							currentUserId={currentUserId}
+						/>
 					</div>
 					<MemberChatPanel
 						member={selectedChatMember}

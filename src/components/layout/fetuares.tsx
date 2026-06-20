@@ -5,10 +5,10 @@ import { Church, CalendarDays, MessageSquare, MousePointerClick } from "lucide-r
 
 import Simple from "./Simple";
 import { useMessages } from "@/i18n/messages";
-import Igreja from "@/assets/images/photo-church.jpg";
-import Pholes from "@/assets/images/photo-fone.jpg";
-import pessoas from "@/assets/images/photo-hand.jpg";
-import Igreja1 from "@/assets/images/photo-church1.jpg";
+import Igreja from "@/assets/images/photo-church.webp";
+import Pholes from "@/assets/images/photo-fone.webp";
+import pessoas from "@/assets/images/photo-hand.webp";
+import Igreja1 from "@/assets/images/photo-church1.webp";
 
 const featureImages = {
 	members:

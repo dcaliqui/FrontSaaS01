@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import icon from "@/assets/images/logoSem.png";
-import heroImg from "@/assets/images/create.png";
+import icon from "@/assets/images/logoSem.webp";
+import heroImg from "@/assets/images/create.webp";
 import Link from "next/link";
 import { Search, Bell, Settings } from "lucide-react";
 import CommunityCard from "@/components/layout/commityCard";

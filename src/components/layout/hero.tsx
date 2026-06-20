@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import igreja from "@/assets/images/unnamed.png";
+import igreja from "@/assets/images/unnamed.webp";
 import Conf from "./conf";
-import heroImg from "@/assets/images/hero.png";
+import heroImg from "@/assets/images/hero.webp";
 import { useMessages } from "@/i18n/messages";
 
 export default function Hero() {
